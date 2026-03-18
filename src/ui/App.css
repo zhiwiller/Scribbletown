@@ -1,0 +1,92 @@
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--hex-stroke);
+  margin-bottom: 1rem;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.turn-info {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.road-bonus-info {
+  color: #e0d080;
+  font-weight: 600;
+}
+
+.restart-btn {
+  margin-left: auto;
+  background: var(--surface-light);
+  color: var(--text);
+  border: 1px solid var(--hex-stroke);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.restart-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.game-over-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1rem;
+  background: #4a2020;
+  border: 2px solid #c04040;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.game-over-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ff6060;
+}
+
+.game-over-score {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e8e8e8;
+}
+
+.app-main {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.board-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-panel {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

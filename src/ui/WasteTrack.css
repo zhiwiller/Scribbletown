@@ -1,0 +1,79 @@
+.waste-track {
+  background: var(--surface);
+  border: 1px solid var(--hex-stroke);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.waste-track h2 {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.waste-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.waste-row {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.waste-cell {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--hex-stroke);
+  border-radius: 4px;
+  background: var(--surface-light);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.waste-cell.filled {
+  background: #5a4a30;
+  border-color: #8a7a58;
+}
+
+.waste-cell.junk-marker {
+  border-color: #c04040;
+}
+
+.waste-cell.junk-marker.filled {
+  border-color: #e06060;
+  background: #6a3a3a;
+}
+
+.junk-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #c04040;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.waste-overflow {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.waste-pending {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c04040;
+}

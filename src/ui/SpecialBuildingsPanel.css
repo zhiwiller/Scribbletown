@@ -1,0 +1,92 @@
+.special-buildings-panel {
+  margin-top: 1rem;
+}
+
+.special-buildings-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.special-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.special-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.special-card {
+  background: var(--surface-light);
+  border: 2px solid var(--hex-stroke);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  opacity: 0.55;
+  transition: opacity 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.special-card-eligible {
+  opacity: 1;
+  border-color: #70b070;
+}
+
+.special-card-built {
+  opacity: 0.45;
+  border-color: var(--hex-stroke);
+}
+
+.special-card-selectable {
+  cursor: pointer;
+}
+
+.special-card-selectable:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(100, 180, 255, 0.4);
+}
+
+.special-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.special-card-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.special-card-badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: var(--hex-stroke);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.eligible-badge {
+  background: #2a5a2a;
+  color: #90dd90;
+}
+
+.special-card-req {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.special-card-effect {
+  font-size: 0.8rem;
+  color: var(--text);
+  font-style: italic;
+}
+
+.special-cancel {
+  margin-top: 0.5rem;
+  width: 100%;
+}

@@ -1,0 +1,91 @@
+.board-svg {
+  display: block;
+}
+
+.hex-polygon {
+  fill: var(--hex-empty);
+  stroke: var(--hex-stroke);
+  stroke-width: 2;
+  transition: fill 0.15s;
+}
+
+.hex-empty:hover {
+  fill: #3a3a5a;
+}
+
+.hex-built {
+  fill: var(--surface-light);
+}
+
+.hex-valid {
+  fill: #2a3a4a;
+  stroke: #5a9aca;
+  stroke-width: 2.5;
+  cursor: pointer;
+}
+
+.hex-valid:hover {
+  fill: #304a5a;
+}
+
+.hex-selected {
+  fill: #2a2a4a;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
+.hex-clickable {
+  cursor: pointer;
+}
+
+/* Roads */
+.road-path {
+  fill: none;
+  stroke: #e0d080;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+/* Scoring circle */
+.scoring-circle {
+  fill: none;
+  stroke: var(--hex-stroke);
+  stroke-width: 1.2;
+}
+
+.scoring-filled {
+  fill: #e0d080;
+  stroke: #c0b060;
+}
+
+.scoring-has-value {
+  fill: #1a1a2e;
+  stroke: var(--hex-stroke);
+  stroke-width: 1.5;
+}
+
+/* Building icons */
+.building-icon {
+  pointer-events: none;
+}
+
+.score-label {
+  fill: #e8e8e8;
+  font-size: 9px;
+  font-weight: 700;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Highway exit stubs */
+.highway-exit-stub {
+  stroke: #e0d080;
+  stroke-width: 5;
+  stroke-dasharray: 6 4;
+}
+
+.highway-exit-marker {
+  fill: #e0d080;
+  stroke: #c0b060;
+  stroke-width: 1.5;
+}
