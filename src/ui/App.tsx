@@ -8,6 +8,7 @@ import { DicePanel } from './DicePanel';
 import { WasteTrack } from './WasteTrack';
 import { MoveLog } from './MoveLog';
 import { SpecialBuildingsPanel } from './SpecialBuildingsPanel';
+import { RulesReference } from './RulesReference';
 import { hasEligibleSpecialBuilding } from '../game/specialBuildings';
 import './App.css';
 
@@ -67,6 +68,7 @@ export function App() {
             onSelectCard={(i: number) => dispatch({ type: 'SELECT_SPECIAL_CARD', cardIndex: i })}
             onCancel={() => dispatch({ type: 'CANCEL_SPECIAL_BUILDING' })}
           />
+          <RulesReference />
         </section>
 
         <aside className="side-panel">
