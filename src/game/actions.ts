@@ -83,6 +83,47 @@ function getActiveDie(state: GameState) {
   return state.dice[state.selectedDieIndex];
 }
 
+/** Check whether a given die can be legally placed on any hex. */
+function canPlaceDieAnywhere(state: GameState, die: { type: string }): boolean {
+  if (die.type === 'building') {
+    return state.hexes.some((h) => canPlaceBuilding(h));
+  }
+  return state.hexes.some((h) => canPlaceRoad(h));
+}
+
+/** Auto-skip dice that have no legal placement. Returns updated state, possibly finishing the turn. */
+function autoSkipUnplaceableDice(state: GameState): GameState {
+  const committedDice = state.dice.filter((d) => d.selected);
+  let placedIds = [...state.placedDiceIds];
+  let log = state.log;
+
+  for (const die of committedDice) {
+    if (placedIds.includes(die.id)) continue;
+    if (!canPlaceDieAnywhere(state, die)) {
+      placedIds.push(die.id);
+      log = addLog(
+        { ...state, log },
+        `Turn ${state.turnNumber}: No legal placement for ${formatFace(die.face)} — skipped.`,
+      );
+    }
+  }
+
+  if (placedIds.length === state.placedDiceIds.length) return state; // nothing changed
+
+  const allPlaced = committedDice.every((d) => placedIds.includes(d.id));
+  const nextState: GameState = {
+    ...state,
+    placedDiceIds: placedIds,
+    selectedDieIndex: null,
+    selectedHex: null,
+    pendingRoadRotation: 0,
+    log,
+  };
+
+  if (allPlaced) return finishPlacement(nextState);
+  return nextState;
+}
+
 /** Transition after all dice placed: go to junk pile placement or next turn. */
 function finishPlacement(state: GameState): GameState {
   if (state.pendingJunkPiles > 0) {
@@ -175,7 +216,7 @@ export function applyAction(state: GameState, action: PlayerAction): GameState {
         .map((d) => `${d.type} - ${formatFace(d.face)}`)
         .join(', ');
 
-      return {
+      const placingState: GameState = {
         ...state,
         phase: 'placing',
         selectedDieIndex: null,
@@ -187,6 +228,7 @@ export function applyAction(state: GameState, action: PlayerAction): GameState {
           `Turn ${state.turnNumber}: Committed ${description}.`,
         ),
       };
+      return autoSkipUnplaceableDice(placingState);
     }
 
     // ---- Placing phase ----
@@ -342,7 +384,7 @@ export function applyAction(state: GameState, action: PlayerAction): GameState {
       if (allPlaced) {
         return finishPlacement(nextState);
       }
-      return nextState;
+      return autoSkipUnplaceableDice(nextState);
     }
 
     case 'CANCEL_PLACEMENT': {

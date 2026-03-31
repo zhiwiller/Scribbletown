@@ -400,4 +400,26 @@ describe('Actions', () => {
       expect(actions.some((a) => a.type === 'CANCEL_PLACEMENT')).toBe(true);
     });
   });
+
+  describe('auto-skip unplaceable dice', () => {
+    it('skips dice and advances turn when no legal placements exist', () => {
+      // Fill every hex so no building or road can be placed
+      const fullHexes: HexState[] = state.hexes.map((h) => ({
+        ...h,
+        building: 'park' as const,
+        roads: [],
+      }));
+      let s: GameState = { ...state, hexes: fullHexes };
+
+      // Roll and commit — should auto-skip both dice and advance to rolling
+      s = applyAction(s, { type: 'ROLL_DICE', seed: 42 });
+      s = applyAction(s, { type: 'TOGGLE_DIE', dieIndex: 0 });
+      s = applyAction(s, { type: 'TOGGLE_DIE', dieIndex: 1 });
+      s = applyAction(s, { type: 'COMMIT_DICE' });
+
+      // Both dice were unplaceable, so it should have advanced past placing
+      expect(s.phase).not.toBe('placing');
+      expect(s.log.some((l) => l.message.includes('skipped'))).toBe(true);
+    });
+  });
 });

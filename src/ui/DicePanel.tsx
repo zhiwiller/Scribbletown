@@ -25,6 +25,64 @@ function formatFace(face: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+function DieIcon({ face }: { face: string }) {
+  const s = 20; // icon size
+  let content: React.ReactNode = null;
+  switch (face) {
+    case 'park':
+      content = (
+        <>
+          <circle cx="0" cy="-4" r="8" fill="#3a7a3a" stroke="#2a5a2a" strokeWidth="1.2" />
+          <rect x="-1" y="-2" width="2" height="10" rx="0.5" fill="#6a4a2a" />
+        </>
+      );
+      break;
+    case 'neighborhood':
+      content = (
+        <>
+          <path d="M0,-10 L8,-3 L8,8 L-8,8 L-8,-3 Z" fill="#6ec6a0" stroke="#3a8a6a" strokeWidth="1.2" />
+          <rect x="-2.5" y="2" width="5" height="6" rx="0.5" fill="#3a8a6a" />
+          <polygon points="-9,-3 0,-10 9,-3" fill="#4daa80" stroke="#3a8a6a" strokeWidth="1" />
+        </>
+      );
+      break;
+    case 'business':
+      content = (
+        <>
+          <path d="M-7,-4 L-4,-4 L-1,5 L7,5 L8,-1 L-2,-1" fill="none" stroke="#d4a030" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="0" cy="8" r="1.8" fill="#d4a030" />
+          <circle cx="5.5" cy="8" r="1.8" fill="#d4a030" />
+        </>
+      );
+      break;
+    case 'factory':
+      content = (
+        <>
+          <rect x="-9" y="-1" width="18" height="10" rx="1" fill="#8888bb" stroke="#5555aa" strokeWidth="1.2" />
+          <rect x="4" y="-9" width="4" height="8" rx="0.5" fill="#7777aa" stroke="#5555aa" strokeWidth="1" />
+          <ellipse cx="6" cy="-10" rx="3" ry="1.5" fill="#aaa" opacity="0.6" />
+        </>
+      );
+      break;
+    case 'farm':
+      content = (
+        <>
+          <path d="M-9,8 L-9,-1 L-1,-8 L7,-1 L7,8 Z" fill="#c47040" stroke="#8a4a28" strokeWidth="1.2" />
+          <rect x="-3" y="2" width="4" height="6" rx="0.5" fill="#8a4a28" />
+          <rect x="8" y="-2" width="4" height="10" rx="2" fill="#c4a060" stroke="#8a7a38" strokeWidth="1" />
+        </>
+      );
+      break;
+    default:
+      return null;
+  }
+  return (
+    <svg className="die-icon" width={s} height={s} viewBox="-12 -12 24 24">
+      {content}
+    </svg>
+  );
+}
+
 export function DicePanel({
   dice,
   phase,
@@ -73,7 +131,7 @@ export function DicePanel({
                 <span className="die-type">
                   {die.type === 'building' ? 'Building' : 'Road'}
                 </span>
-                <span className="die-face">{formatFace(die.face)}</span>
+                <span className="die-face"><DieIcon face={die.face} />{formatFace(die.face)}</span>
               </button>
             ))}
           </div>
@@ -116,7 +174,7 @@ export function DicePanel({
                   <span className="die-type">
                     {die.type === 'building' ? 'Building' : 'Road'}
                   </span>
-                  <span className="die-face">{formatFace(die.face)}</span>
+                  <span className="die-face"><DieIcon face={die.face} />{formatFace(die.face)}</span>
                   {placed && <span className="die-status">Placed</span>}
                 </button>
               );
