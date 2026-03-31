@@ -23,7 +23,7 @@ function BuildingIcon({ type, cx, cy, opacity }: {
 }) {
   const o = opacity ?? 1;
   return (
-    <g transform={`translate(${cx}, ${cy})`} opacity={o} className="building-icon">
+    <g transform={`translate(${cx}, ${cy}) scale(1.2)`} opacity={o} className="building-icon">
       {type === 'neighborhood' && (
         <>
           <path d="M0,-10 L8,-3 L8,8 L-8,8 L-8,-3 Z" fill="#6ec6a0" stroke="#3a8a6a" strokeWidth="1.2" />

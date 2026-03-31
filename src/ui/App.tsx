@@ -49,54 +49,52 @@ export function App() {
         </div>
       )}
 
-      <main className="app-main">
-        <section className="board-section">
-          <Board
-            state={state}
-            onHexClick={(coord: HexCoord) => {
-              if (state.phase === 'placing_junk') {
-                dispatch({ type: 'PLACE_JUNK_PILE', coord });
-              } else if (state.phase === 'placing_special') {
-                dispatch({ type: 'PLACE_SPECIAL_BUILDING', coord });
-              } else {
-                dispatch({ type: 'SELECT_HEX', coord });
-              }
-            }}
-          />
-          <SpecialBuildingsPanel
-            state={state}
-            onSelectCard={(i: number) => dispatch({ type: 'SELECT_SPECIAL_CARD', cardIndex: i })}
-            onCancel={() => dispatch({ type: 'CANCEL_SPECIAL_BUILDING' })}
-          />
-          <RulesReference />
-        </section>
+      <section className="board-section">
+        <Board
+          state={state}
+          onHexClick={(coord: HexCoord) => {
+            if (state.phase === 'placing_junk') {
+              dispatch({ type: 'PLACE_JUNK_PILE', coord });
+            } else if (state.phase === 'placing_special') {
+              dispatch({ type: 'PLACE_SPECIAL_BUILDING', coord });
+            } else {
+              dispatch({ type: 'SELECT_HEX', coord });
+            }
+          }}
+        />
+      </section>
 
-        <aside className="side-panel">
-          <DicePanel
-            dice={state.dice}
-            phase={state.phase}
-            selectedDieIndex={state.selectedDieIndex}
-            selectedHex={state.selectedHex}
-            placedDiceIds={state.placedDiceIds}
-            onRoll={() => dispatch({ type: 'ROLL_DICE' })}
-            onToggle={(i: number) => dispatch({ type: 'TOGGLE_DIE', dieIndex: i })}
-            onCommit={() => dispatch({ type: 'COMMIT_DICE' })}
-            onSelectPlacementDie={(id: number) => dispatch({ type: 'SELECT_PLACEMENT_DIE', dieId: id })}
-            onRotateRoad={() => dispatch({ type: 'ROTATE_ROAD' })}
-            onConfirmPlacement={() => dispatch({ type: 'CONFIRM_PLACEMENT' })}
-            onCancelPlacement={() => dispatch({ type: 'CANCEL_PLACEMENT' })}
-            pendingJunkPiles={state.pendingJunkPiles}
-            canBuildSpecial={hasEligibleSpecialBuilding(state)}
-            onBuildSpecial={() => dispatch({ type: 'BUILD_SPECIAL_BUILDING' })}
-          />
-          <WasteTrack
-            wasteCount={state.wasteCount}
-            pendingJunkPiles={state.pendingJunkPiles}
-          />
-          <MoveLog log={state.log} />
-        </aside>
-      </main>
+      <div className="controls-row">
+        <DicePanel
+          dice={state.dice}
+          phase={state.phase}
+          selectedDieIndex={state.selectedDieIndex}
+          selectedHex={state.selectedHex}
+          placedDiceIds={state.placedDiceIds}
+          onRoll={() => dispatch({ type: 'ROLL_DICE' })}
+          onToggle={(i: number) => dispatch({ type: 'TOGGLE_DIE', dieIndex: i })}
+          onCommit={() => dispatch({ type: 'COMMIT_DICE' })}
+          onSelectPlacementDie={(id: number) => dispatch({ type: 'SELECT_PLACEMENT_DIE', dieId: id })}
+          onRotateRoad={() => dispatch({ type: 'ROTATE_ROAD' })}
+          onConfirmPlacement={() => dispatch({ type: 'CONFIRM_PLACEMENT' })}
+          onCancelPlacement={() => dispatch({ type: 'CANCEL_PLACEMENT' })}
+          pendingJunkPiles={state.pendingJunkPiles}
+          canBuildSpecial={hasEligibleSpecialBuilding(state)}
+          onBuildSpecial={() => dispatch({ type: 'BUILD_SPECIAL_BUILDING' })}
+        />
+        <WasteTrack
+          wasteCount={state.wasteCount}
+          pendingJunkPiles={state.pendingJunkPiles}
+        />
+      </div>
 
+      <SpecialBuildingsPanel
+        state={state}
+        onSelectCard={(i: number) => dispatch({ type: 'SELECT_SPECIAL_CARD', cardIndex: i })}
+        onCancel={() => dispatch({ type: 'CANCEL_SPECIAL_BUILDING' })}
+      />
+      <RulesReference />
+      <MoveLog log={state.log} />
     </div>
   );
 }
